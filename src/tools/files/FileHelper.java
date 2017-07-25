@@ -46,8 +46,6 @@ public class FileHelper {
         this.outputFileAbsPath = outputFileName;
     }
 
- 
-
     public static boolean deleteFolder(String sPath) {
         boolean flag = false;
         File file = new File(sPath);
@@ -77,31 +75,31 @@ public class FileHelper {
 
     private static boolean deleteDirectory(String sPath) {
 
+        boolean flag = false;
         if (!sPath.endsWith(File.separator)) {
             sPath = sPath + File.separator;
         }
         File dirFile = new File(sPath);
 
         if (!dirFile.exists() || !dirFile.isDirectory()) {
-            return false;
-        }
-        boolean flag = true;
-
-        File[] files = dirFile.listFiles();
-        for (int i = 0; i < files.length; i++) {
-
-            if (files[i].isFile()) {
-                flag = deleteFile(files[i].getAbsolutePath());
-                if (!flag) {
-                    break;
-                }
-            } else {
-                flag = deleteDirectory(files[i].getAbsolutePath());
-                if (!flag) {
-                    break;
+            flag = false;
+        } else {
+            File[] files = dirFile.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    flag = deleteFile(file.getAbsolutePath());
+                    if (!flag) {
+                        break;
+                    }
+                } else {
+                    flag = deleteDirectory(file.getAbsolutePath());
+                    if (!flag) {
+                        break;
+                    }
                 }
             }
         }
+
         if (!flag) {
             return false;
         }
