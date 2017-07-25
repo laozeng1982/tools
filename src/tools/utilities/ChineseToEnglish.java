@@ -43,7 +43,6 @@ public class ChineseToEnglish {
             // System.out.println(t4);  
             return t4;
         } catch (BadHanyuPinyinOutputFormatCombination e) {
-            e.printStackTrace();
         }
         return t4;
     }
@@ -66,7 +65,7 @@ public class ChineseToEnglish {
 
     // Transfer to ASCII code  
     public static String getCnASCII(String cnStr) {
-        StringBuffer strBuf = new StringBuffer();
+        StringBuilder strBuf = new StringBuilder();
         byte[] bGBK = cnStr.getBytes();
         for (int i = 0; i < bGBK.length; i++) {
             strBuf.append(Integer.toHexString(bGBK[i] & 0xff));
