@@ -21,12 +21,20 @@ import tools.utilities.Logs;
 public class JFxFileChooser {
 
     private String defaultPath;
-    private Stage showStage;
+    private final Stage showStage;
     FileChooser fileChooser = new FileChooser();
 
-    public JFxFileChooser(Stage stage, String path, String tips, String... fileTypes) {
+    public JFxFileChooser(Stage stage) {
         this.showStage = stage;
+    }
 
+    /**
+     * 
+     * @param path
+     * @param tips
+     * @param fileTypes 
+     */
+    public void customize(String path, String tips, String... fileTypes) {
         if (path != null && !path.isEmpty()) {
             if ((new File(path)).getParent() != null) {
                 defaultPath = (new File(path)).getAbsolutePath();
@@ -56,10 +64,10 @@ public class JFxFileChooser {
             fileChooser.setInitialDirectory(new File(defaultPath));
             if (isOpen) {
                 resultFile = fileChooser.showOpenDialog(showStage);
-            }else{
+            } else {
                 resultFile = fileChooser.showSaveDialog(showStage);
             }
-            
+
             if (resultFile != null) {
                 if (textField != null) {
                     textField.setText(resultFile.getAbsolutePath());

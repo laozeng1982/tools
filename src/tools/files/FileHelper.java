@@ -6,6 +6,9 @@
 package tools.files;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -44,6 +47,26 @@ public class FileHelper {
     public FileHelper(String inputFileName, String outputFileName) {
         this.inputFileAbsPath = inputFileName;
         this.outputFileAbsPath = outputFileName;
+    }
+
+    /**
+     * 
+     * @param dir
+     * @param sufx
+     * @return 
+     */
+    public static List<File> getAllFilesInDirectory(String dir, String sufx) {
+        File dirFile = (new File(dir));
+        List outputFiles = new ArrayList<>();
+        if (dirFile.isDirectory()) {
+            for (File listFile : dirFile.listFiles()) {
+                if (listFile.getName().contains(sufx)) {
+                    outputFiles.add(listFile);
+                }
+            }
+        }
+
+        return outputFiles;
     }
 
     public static boolean deleteFolder(String sPath) {
